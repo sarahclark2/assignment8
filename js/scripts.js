@@ -3,14 +3,15 @@ $(document).ready(function(){
 
 
 var url = 'http://api.open-notify.org/iss-now.json';
-var url2 = 'https://nominatim.openstreetmap.org/reverse?format=xml&lat=52.5487429714954&lon=-1.81602098644987&zoom=18&addressdetails=1';
+var url2 = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=&lon=';
 var urlArray = [url, url2];
 var data = [];
 var data2 = [];
 var html = '';
-var latitude = [];
-var longitude = [];
+var latitude = 'data.iss_position.latitude';
+var longitude = 'data.iss_position.longitude';
 var position = [];
+var country = [];
 
 
 
@@ -30,7 +31,6 @@ $.ajax({
 
 
     (function(position){
-      console.log(data.iss_position.latitude);
       html += '<div class="coordinates flex">';
       html += '<div class="text">';
       html += '<a href="' + position.url +'" target="_blank"';
@@ -46,20 +46,20 @@ $.ajax({
 
 $.ajax({
   type: 'GET',
-  url: url2,
+  url: url2 + latitude + longitude,
   dataType: 'json',
   async: true,
   data: data2,
   success:function(data2){
-    console.log(data2.result);
-    place = data2.result;
+    console.log(data2.address.country);
+    place = data2.country;
 
     (function(place){
       console.log(place.result);
       html += '<div class="coordinates flex">';
       html += '<div class="text">';
       html += '<a href="' + place.url2 +'" target="_blank"';
-        html += '<h2 class="headline">' + data2.result + '</h2>';
+        html += '<h2 class="headline">' + data2.country + '</h2>';
         html += '</a></div>'
       html += '</div>'; //close div here
     });
