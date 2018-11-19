@@ -1,7 +1,7 @@
 $(document).ready(function(){
   console.log('scripts loaded');
 
-
+//can't figure out where to concatenate the lat and long
 var url = 'http://api.open-notify.org/iss-now.json';
 var url2 = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=&lon=';
 var urlArray = [url, url2];
@@ -16,9 +16,6 @@ var country = [];
 
 
 //get coordinates to show up
-
-
-
 $.ajax({
   type: 'GET',
   url: url,
@@ -38,12 +35,12 @@ $.ajax({
         html += '</a></div>'
       html += '</div>'; //close div here
     });
-      $('#results').html(html);
+      $('#results').html(html);//this wouldn't get anything to show up :(
 
 }//end of function
 
 });//end of first ajax
-
+//trying to get data from the second url
 $.ajax({
   type: 'GET',
   url: url2 + latitude + longitude,
